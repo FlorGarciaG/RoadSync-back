@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api/usuario")
 @CrossOrigin(origins = "*")
 public class UsuarioController {
     @Autowired
@@ -48,7 +48,7 @@ public class UsuarioController {
     }
 
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<UsuarioModel>> obtenerUsuarios() {
         List<UsuarioModel> usuarios = usuarioService.obtenerUsuarios();
         if (usuarios.isEmpty()) {
