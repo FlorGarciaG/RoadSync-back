@@ -20,8 +20,8 @@ public class VehiculoController {
     @PostMapping("/registro")
     public ResponseEntity<Object> registrarVehiculo(@RequestBody VehiculoModel vehiculo) {
         try {
-            VehiculoModel nuevoVehiculo = vehiculoService.registrarVehiculo(vehiculo);
-            return ResponseEntity.status(HttpStatus.CREATED).body(nuevoVehiculo);
+            vehiculoService.registrarVehiculo(vehiculo);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Vehiculo registrado con exito");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al registrar vehículo: " + e.getMessage());
         }
