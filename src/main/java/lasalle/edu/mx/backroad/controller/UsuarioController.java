@@ -20,8 +20,6 @@ import java.util.Optional;
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
 
     //Registrar usuario
     @PostMapping("/registro")
@@ -72,37 +70,13 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> actualizarUsuario(@PathVariable Long id, @RequestBody UsuarioModel usuarioActualizado) {
-        Optional<UsuarioModel> usuarioExistenteOpt = usuarioService.obtenerUsuarioPorId(id);
-
-        if (usuarioExistenteOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
-        }
-
         try {
-            UsuarioModel usuarioExistente = usuarioExistenteOpt.get();
-
-            if (usuarioActualizado.getNombre() != null) {
-                usuarioExistente.setNombre(usuarioActualizado.getNombre());
-            }
-            if (usuarioActualizado.getApellidos() != null) {
-                usuarioExistente.setApellidos(usuarioActualizado.getApellidos());
-            }
-            if (usuarioActualizado.getCorreo() != null) {
-                usuarioExistente.setCorreo(usuarioActualizado.getCorreo());
-            }
-            if (usuarioActualizado.getRol() != null) {
-                usuarioExistente.setRol(usuarioActualizado.getRol());
-            }
-            if (usuarioActualizado.getPassword() != null) {
-                String passwordCifrada = passwordEncoder.encode(usuarioActualizado.getPassword());
-                usuarioExistente.setPassword(passwordCifrada);
-            }
-
-            usuarioService.actualizarUsuario(id, usuarioExistente);
+            usuarioService.actualizarUsuario(id, usuarioActualizado);
             return ResponseEntity.status(HttpStatus.OK).body("Usuario actualizado con éxito");
-
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al actualizar: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al actualizar vehículo: " + e.getMessage());
         }
     }
 

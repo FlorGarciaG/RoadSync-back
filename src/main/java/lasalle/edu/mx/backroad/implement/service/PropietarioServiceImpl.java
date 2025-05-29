@@ -48,8 +48,14 @@ public class PropietarioServiceImpl implements PropietarioService {
     public void actualizarPropietario(String curp, PropietarioModel propietario) {
         Optional<PropietarioModel> existente = propietarioRepository.findByCurp(curp);
         if (existente.isPresent()) {
-            propietario.setCurp(curp);
-            propietarioRepository.save(propietario);
+            PropietarioModel v = existente.get();
+
+            v.setNombre(propietario.getNombre()!=null ? propietario.getNombre() : v.getNombre());
+            v.setApellidos(propietario.getApellidos() != null ? propietario.getApellidos() : v.getApellidos());
+            v.setRfc(propietario.getRfc() != null ? propietario.getRfc() : v.getRfc());
+            v.setLicencia(propietario.getLicencia() != null ? propietario.getLicencia() : v.getLicencia());
+            v.setLicenciaVencimiento(propietario.getLicenciaVencimiento() != null ? propietario.getLicenciaVencimiento() : v.getLicenciaVencimiento());
+            propietarioRepository.save(v);
         } else {
             throw new IllegalArgumentException("Propietario no encontrado.");
         }

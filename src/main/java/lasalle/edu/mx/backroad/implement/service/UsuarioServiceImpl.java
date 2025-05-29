@@ -57,8 +57,23 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public void actualizarUsuario(Long id, UsuarioModel usuario) {
-        usuario.setIdUsuario(id);
-        usuarioRepository.save(usuario);
+        Optional<UsuarioModel> existente = usuarioRepository.findById(id);
+        if (existente.isPresent()) {
+            UsuarioModel v = existente.get();
+
+            v.setCorreo(usuario.getCorreo() != null ? usuario.getCorreo() : v.getCorreo());
+            v.setNombre(usuario.getNombre() != null ? usuario.getNombre() : v.getNombre());
+            v.setApellidos(usuario.getApellidos() != null ? usuario.getApellidos() : v.getApellidos());
+            v.setRol(usuario.getRol() != null ? usuario.getRol() : v.getRol());
+            v.setCorreo(usuario.getCorreo() != null ? usuario.getCorreo() : v.getCorreo());
+            if (usuario.getPassword() != null) {
+                String passwordCifrada = passwordEncoder.encode(usuario.getPassword());
+                v.setPassword(passwordCifrada);
+            }
+            usuarioRepository.save(usuario);
+        }else{
+            throw new IllegalArgumentException("El usuario no existe");
+        }
     }
 
     @Override

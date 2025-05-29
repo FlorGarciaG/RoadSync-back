@@ -50,47 +50,23 @@ public class PropietarioController {
 
     @PutMapping("/{curp}")
     public ResponseEntity<Object> actualizarPropietario(@PathVariable String curp, @RequestBody PropietarioModel propietario) {
-        Optional<PropietarioModel> propietarioExistenteOpt = propietarioService.obtenerPropietarioPorCurp(curp);
-
-        if (propietarioExistenteOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Propietario no encontrado");
-        }
-
         try {
-            PropietarioModel propietarioExistente = propietarioExistenteOpt.get();
-
-            if (propietario.getNombre() == null) {
-                propietario.setNombre(propietarioExistente.getNombre());
-            }
-            if (propietario.getApellidos() == null) {
-                propietario.setApellidos(propietarioExistente.getApellidos());
-            }
-            if (propietario.getLicencia() == null) {
-                propietario.setLicencia(propietarioExistente.getLicencia());
-            }
-            if (propietario.getLicenciaVencimiento() == null) {
-                propietario.setLicenciaVencimiento(propietarioExistente.getLicenciaVencimiento());
-            }
-            if (propietario.getRfc() == null) {
-                propietario.setRfc(propietarioExistente.getRfc());
-            }
-
             propietarioService.actualizarPropietario(curp, propietario);
             return ResponseEntity.ok("Propietario actualizado con exito");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al actualizar: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al actualizar propietario: " + e.getMessage());
         }
     }
 
     @DeleteMapping("/{curp}")
     public ResponseEntity<Object> eliminarPropietario(@PathVariable String curp) {
         Optional<PropietarioModel> propietarioExistenteOpt = propietarioService.obtenerPropietarioPorCurp(curp);
-
         if (propietarioExistenteOpt.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Propietario no encontrado");
         }
-
-        try{
+        try {
             propietarioService.eliminarPropietario(curp);
             return ResponseEntity.ok("Propietario eliminado con exito");
         } catch (Exception e) {
