@@ -70,7 +70,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 String passwordCifrada = passwordEncoder.encode(usuario.getPassword());
                 v.setPassword(passwordCifrada);
             }
-            usuarioRepository.save(usuario);
+            usuarioRepository.save(v);
         }else{
             throw new IllegalArgumentException("El usuario no existe");
         }
