@@ -1,0 +1,16 @@
+package lasalle.edu.mx.backroad.repository;
+
+
+import lasalle.edu.mx.backroad.model.PropietarioModel;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface PropietarioRepository extends JpaRepository<PropietarioModel, String> {
+    boolean existsByCurp(String curp);
+    boolean existsByRfc(String rfc);
+    boolean existsByLicencia(String licencia);
+    Optional<PropietarioModel> findByCurp(String curp);
+}
