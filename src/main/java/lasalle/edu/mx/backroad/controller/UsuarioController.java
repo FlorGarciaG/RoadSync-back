@@ -26,27 +26,39 @@ public class UsuarioController {
     //Registrar usuario
     @PostMapping("/registro")
     public ResponseEntity<Object> registrarUsuario(@RequestBody UsuarioModel usuario) {
-        try{
+        try {
             usuarioService.registrarUsuario(usuario);
             return ResponseEntity.status(HttpStatus.CREATED).body("Usuario registrado con exito");
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al registrar: " + e.getMessage());
         }
     }
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody Map<String, String> loginData) {
-        String correo = loginData.get("correo");
-        String password = loginData.get("password");
+        try {
+            String correo = loginData.get("correo");
+            String password = loginData.get("password");
 
-        Optional<UsuarioModel> usuario = usuarioService.autenticar(correo, password);
-        if (usuario.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(usuario.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error al autenticar");
+            // Validar que correo y password estén presentes y no vacíos
+            if (correo == null || correo.isBlank() || password == null || password.isBlank()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Formato inválido: correo y password son obligatorios.");
+            }
+
+            Optional<UsuarioModel> usuario = usuarioService.autenticar(correo, password);
+
+            if (usuario.isPresent()) {
+                return ResponseEntity.status(HttpStatus.OK).body(usuario.get());
+            } else {
+                // Usuario o contraseña incorrectos
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Correo o contraseña incorrectos.");
+            }
+
+        } catch (Exception e) {
+            // Error inesperado del servidor
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del servidor. Por favor intente más tarde.");
         }
     }
-
 
     @GetMapping("/all")
     public ResponseEntity<List<UsuarioModel>> obtenerUsuarios() {
@@ -94,16 +106,15 @@ public class UsuarioController {
         }
     }
 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> eliminarUsuario(@PathVariable Long id) {
         if (usuarioService.obtenerUsuarioPorId(id).isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
         }
-        try{
+        try {
             usuarioService.eliminarUsuario(id);
             return ResponseEntity.status(HttpStatus.OK).body("Usuario eliminado con exito");
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al eliminar: " + e.getMessage());
         }
     }

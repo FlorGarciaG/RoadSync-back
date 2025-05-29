@@ -94,7 +94,8 @@ public class PropietarioController {
             propietarioService.eliminarPropietario(curp);
             return ResponseEntity.ok("Propietario eliminado con exito");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al eliminar: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.
+                    BAD_REQUEST).body("Error al eliminar: " + e.getMessage());
         }
 
     }
