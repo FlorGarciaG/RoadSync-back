@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/propietario")
+@CrossOrigin(origins = "*")
 public class PropietarioController {
     @Autowired
     private PropietarioService propietarioService;
