@@ -40,6 +40,11 @@ public class PropietarioServiceImpl implements PropietarioService {
     }
 
     @Override
+    public List<PropietarioModel> buscarPropietarioPorCurp (String curpParcial) {
+        return propietarioRepository.findByCurpContainingIgnoreCase(curpParcial);
+    }
+
+    @Override
     public void eliminarPropietario(String curp) {
         propietarioRepository.deleteById(curp);
     }

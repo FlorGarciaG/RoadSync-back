@@ -13,4 +13,5 @@ public interface PropietarioService {
     Optional<PropietarioModel> obtenerPropietarioPorCurp(String curp);
     void eliminarPropietario(String curp);
     void actualizarPropietario(String curp, PropietarioModel propietario);
+    List<PropietarioModel> buscarPropietarioPorCurp(String curp);
 }

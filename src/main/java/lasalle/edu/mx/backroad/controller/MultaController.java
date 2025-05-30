@@ -64,7 +64,7 @@ public class MultaController {
         }
     }
 
-    @GetMapping("/buscar/placa")
+    @GetMapping("/buscar/vehiculo")
     public ResponseEntity<List<MultaModel>> buscarMultasPorPlaca(@RequestParam String placa) {
         List<MultaModel> multas = multaService.obtenerMultasPorPlaca(placa);
         if (multas.isEmpty()) {

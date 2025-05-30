@@ -74,7 +74,15 @@ public class PropietarioController {
             return ResponseEntity.status(HttpStatus.
                     BAD_REQUEST).body("Error al eliminar: " + e.getMessage());
         }
+    }
 
+    @GetMapping("/buscar/curp")
+    public ResponseEntity<List<PropietarioModel>> buscarMultasPorPlaca(@RequestParam String curp) {
+        List<PropietarioModel> lista = propietarioService.buscarPropietarioPorCurp(curp);
+        if (lista.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
 }
