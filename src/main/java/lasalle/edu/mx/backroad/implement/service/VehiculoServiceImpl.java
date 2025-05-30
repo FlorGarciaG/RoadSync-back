@@ -58,4 +58,9 @@ public class VehiculoServiceImpl implements VehiculoService {
     public List<VehiculoModel> buscarVehiculosPorCurp(String curpParcial) {
         return vehiculoRepository.findByPropietarioCurpContainingIgnoreCase(curpParcial);
     }
+
+    @Override
+    public List<VehiculoModel> buscarVehiculosPorPlaca(String placaParcial) {
+        return vehiculoRepository.findByPlacaContainingIgnoreCase(placaParcial);
+    }
 }

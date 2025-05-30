@@ -81,4 +81,13 @@ public class VehiculoController {
         }
         return new ResponseEntity<>(vehiculos, HttpStatus.OK);
     }
+
+    @GetMapping("/buscar/placa")
+    public ResponseEntity<List<VehiculoModel>> buscarVehiculosPorPlaca(@RequestParam String placa) {
+        List<VehiculoModel> vehiculos = vehiculoService.buscarVehiculosPorPlaca(placa);
+        if (vehiculos.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(vehiculos, HttpStatus.OK);
+    }
 }

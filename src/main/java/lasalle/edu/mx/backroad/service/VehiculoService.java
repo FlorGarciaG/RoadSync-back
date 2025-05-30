@@ -14,4 +14,5 @@ public interface VehiculoService {
     void eliminarVehiculo(Long idVehiculo);
     void actualizarVehiculo (Long idVehiculo, VehiculoModel vehiculo);
     List<VehiculoModel> buscarVehiculosPorCurp(String curpParcial);
+    List<VehiculoModel> buscarVehiculosPorPlaca(String placaParcial);
 }

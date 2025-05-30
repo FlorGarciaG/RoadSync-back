@@ -9,5 +9,4 @@ import java.util.List;
 @Repository
 public interface MultaRepository extends JpaRepository<MultaModel, Long> {
     List<MultaModel> findByVehiculoPlacaContainingIgnoreCase(String placa);
-
 }
