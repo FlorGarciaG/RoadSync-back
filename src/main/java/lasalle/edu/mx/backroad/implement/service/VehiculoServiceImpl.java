@@ -35,7 +35,7 @@ public class VehiculoServiceImpl implements VehiculoService {
     }
 
     @Override
-    public VehiculoModel actualizarVehiculo(Long idVehiculo, VehiculoModel vehiculo) {
+    public void actualizarVehiculo(Long idVehiculo, VehiculoModel vehiculo) {
         Optional<VehiculoModel> existente = vehiculoRepository.findById(idVehiculo);
         if (existente.isPresent()) {
             VehiculoModel v = existente.get();
@@ -48,15 +48,14 @@ public class VehiculoServiceImpl implements VehiculoService {
             v.setTarjetaVencimiento(vehiculo.getTarjetaVencimiento() != null ? vehiculo.getTarjetaVencimiento() : v.getTarjetaVencimiento());
             v.setPropietario(vehiculo.getPropietario() != null ? vehiculo.getPropietario() : v.getPropietario());
 
-            return vehiculoRepository.save(v);
+            vehiculoRepository.save(v);
         } else {
             throw new IllegalArgumentException("Vehículo no encontrado.");
         }
     }
 
     @Override
-    public List<VehiculoModel> obtenerVehiculosPorCurp(String curp) {
-        return vehiculoRepository.findByPropietarioCurp(curp);
+    public List<VehiculoModel> buscarVehiculosPorCurp(String curpParcial) {
+        return vehiculoRepository.findByPropietarioCurpContainingIgnoreCase(curpParcial);
     }
-
 }

@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface VehiculoRepository extends JpaRepository<VehiculoModel, Long> {
-    List<VehiculoModel> findByPropietarioCurp(String curp);
+    List<VehiculoModel> findByPropietarioCurpContainingIgnoreCase(String curp);
+
 }

@@ -12,7 +12,6 @@ public interface VehiculoService {
     List<VehiculoModel> obtenerVehiculos();
     Optional<VehiculoModel> obtenerVehiculoPorId(Long idVehiculo);
     void eliminarVehiculo(Long idVehiculo);
-    VehiculoModel actualizarVehiculo(Long idVehiculo, VehiculoModel vehiculo);
-    List<VehiculoModel> obtenerVehiculosPorCurp(String curp);
-
+    void actualizarVehiculo (Long idVehiculo, VehiculoModel vehiculo);
+    List<VehiculoModel> buscarVehiculosPorCurp(String curpParcial);
 }

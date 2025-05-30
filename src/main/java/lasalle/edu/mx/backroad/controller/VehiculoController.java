@@ -73,4 +73,12 @@ public class VehiculoController {
         }
     }
 
+    @GetMapping("/buscar/propietario")
+    public ResponseEntity<List<VehiculoModel>> buscarVehiculosPorCurp(@RequestParam String curp) {
+        List<VehiculoModel> vehiculos = vehiculoService.buscarVehiculosPorCurp(curp);
+        if (vehiculos.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(vehiculos, HttpStatus.OK);
+    }
 }
