@@ -25,7 +25,7 @@ public class PropietarioModel {
     @Pattern(regexp = "^[A-Z]{4}[0-9]{6}[HM]{1}[A-Z]{5}[A-Z0-9]{2}$", message = "CURP no válido")
     private String curp;
 
-    @Column(unique = true, length = 13)
+    @Column(length = 13)
     @Size(min=13,max=13)
     @Pattern(regexp = "^([A-ZÑ&]{3,4})\\d{6}[A-Z0-9]{3}$", message = "RFC no válido")
     private String rfc;
