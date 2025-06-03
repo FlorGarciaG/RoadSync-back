@@ -24,6 +24,9 @@ public class MultaModel {
     @Column(precision = 10, scale = 2)
     private BigDecimal monto;
 
+    @Column(length = 255)
+    private String descripcion;
+
     @NotNull
     private LocalDate fecha;
 
@@ -65,5 +68,13 @@ public class MultaModel {
 
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }
