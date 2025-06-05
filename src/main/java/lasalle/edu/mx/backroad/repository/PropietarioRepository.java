@@ -11,7 +11,6 @@ import java.util.Optional;
 @Repository
 public interface PropietarioRepository extends JpaRepository<PropietarioModel, String> {
     boolean existsByCurp(String curp);
-    boolean existsByRfc(String rfc);
     boolean existsByLicencia(String licencia);
     Optional<PropietarioModel> findByCurp(String curp);
     List<PropietarioModel> findByCurpContainingIgnoreCase(String curp);

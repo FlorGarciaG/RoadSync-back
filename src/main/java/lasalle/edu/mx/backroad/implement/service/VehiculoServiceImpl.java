@@ -16,6 +16,13 @@ public class VehiculoServiceImpl implements VehiculoService {
 
     @Override
     public VehiculoModel registrarVehiculo(VehiculoModel vehiculo) {
+        //Validación de duplicados
+        if (vehiculoRepository.existsByNumMotor(vehiculo.getNumMotor())) {
+            throw new IllegalArgumentException("Número de motor ya registrado");
+        }
+        if (vehiculoRepository.existsByNumSerie(vehiculo.getNumSerie())) {
+            throw new IllegalArgumentException("Numero de serie ya registrado");
+        }
         return vehiculoRepository.save(vehiculo);
     }
 
@@ -45,6 +52,11 @@ public class VehiculoServiceImpl implements VehiculoService {
             v.setMarca(vehiculo.getMarca() != null ? vehiculo.getMarca() : v.getMarca());
             v.setModelo(vehiculo.getModelo() != null ? vehiculo.getModelo() : v.getModelo());
             v.setTarjeta(vehiculo.getTarjeta() != null ? vehiculo.getTarjeta() : v.getTarjeta());
+            v.setUso(vehiculo.getUso() != null ? vehiculo.getUso() : v.getUso());
+            v.setAnioAuto(vehiculo.getAnioAuto() != null ? vehiculo.getAnioAuto() : v.getAnioAuto());
+            v.setTipo_combustible(vehiculo.getTipo_combustible() != null ? vehiculo.getTipo_combustible() : v.getTipo_combustible());
+            v.setNumMotor(vehiculo.getNumMotor() != null ? vehiculo.getNumMotor() : v.getNumMotor());
+            v.setNumSerie(vehiculo.getNumSerie() != null ? vehiculo.getNumSerie() : v.getNumSerie());
             v.setTarjetaVencimiento(vehiculo.getTarjetaVencimiento() != null ? vehiculo.getTarjetaVencimiento() : v.getTarjetaVencimiento());
             v.setPropietario(vehiculo.getPropietario() != null ? vehiculo.getPropietario() : v.getPropietario());
 
