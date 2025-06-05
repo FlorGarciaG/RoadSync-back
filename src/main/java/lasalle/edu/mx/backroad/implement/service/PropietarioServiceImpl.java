@@ -20,9 +20,6 @@ public class PropietarioServiceImpl implements PropietarioService {
         if (propietarioRepository.existsByCurp(propietario.getCurp())) {
             throw new IllegalArgumentException("Ya existe un propietario con ese CURP.");
         }
-        if (propietarioRepository.existsByRfc(propietario.getRfc())) {
-            throw new IllegalArgumentException("Ya existe un propietario con ese RFC.");
-        }
         if (propietarioRepository.existsByLicencia(propietario.getLicencia())) {
             throw new IllegalArgumentException("Ya existe un propietario con esa licencia.");
         }
