@@ -36,6 +36,7 @@ public class catalogoMultaServiceImpl implements catalogoMultaService {
                 throw new IllegalArgumentException("El tipo de multa ya existe");
             }
             v.setTipo(multa.getTipo() != null ? multa.getTipo() : v.getTipo());
+            v.setMonto(multa.getMonto() != null ? multa.getMonto() : v.getMonto());
 
             catalogoMultaRepository.save(v);
         } else {

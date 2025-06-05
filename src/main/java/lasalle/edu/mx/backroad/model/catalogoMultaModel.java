@@ -32,4 +32,9 @@ public class catalogoMultaModel {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    public Long getIdTipo() {
+        return idTipo;
+    }
+
 }
