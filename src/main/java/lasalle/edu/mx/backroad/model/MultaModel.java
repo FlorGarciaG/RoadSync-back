@@ -17,12 +17,9 @@ public class MultaModel {
     @JoinColumn(name = "id_vehiculo", referencedColumnName = "idVehiculo", nullable = false)
     private VehiculoModel vehiculo;
 
-    @NotNull
-    @Column(length = 50)
-    private String tipoMulta;
-
-    @Column(precision = 10, scale = 2)
-    private BigDecimal monto;
+    @ManyToOne
+    @JoinColumn(name = "tipoMulta", referencedColumnName = "idTipo")
+    private catalogoMultaModel tipoMulta;
 
     @Column(length = 255)
     private String descripcion;
@@ -46,22 +43,6 @@ public class MultaModel {
         this.vehiculo = vehiculo;
     }
 
-    public String getTipoMulta() {
-        return tipoMulta;
-    }
-
-    public void setTipoMulta(String tipoMulta) {
-        this.tipoMulta = tipoMulta;
-    }
-
-    public BigDecimal getMonto() {
-        return monto;
-    }
-
-    public void setMonto(BigDecimal monto) {
-        this.monto = monto;
-    }
-
     public LocalDate getFecha() {
         return fecha;
     }
@@ -76,5 +57,13 @@ public class MultaModel {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public catalogoMultaModel getTipoMulta() {
+        return tipoMulta;
+    }
+
+    public void setTipoMulta(catalogoMultaModel tipoMulta) {
+        this.tipoMulta = tipoMulta;
     }
 }

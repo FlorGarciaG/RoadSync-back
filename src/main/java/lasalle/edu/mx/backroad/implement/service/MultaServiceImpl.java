@@ -42,7 +42,6 @@ public class MultaServiceImpl implements MultaService {
             MultaModel v = existente.get();
             v.setTipoMulta(multa.getTipoMulta() != null ? multa.getTipoMulta() : v.getTipoMulta());
             v.setFecha(multa.getFecha() != null ? multa.getFecha() : v.getFecha());
-            v.setMonto(multa.getMonto() != null ? multa.getMonto() : v.getMonto());
             v.setVehiculo(multa.getVehiculo() != null ? multa.getVehiculo() : v.getVehiculo());
             v.setDescripcion(multa.getDescripcion() != null ? multa.getDescripcion() : v.getDescripcion());
 
