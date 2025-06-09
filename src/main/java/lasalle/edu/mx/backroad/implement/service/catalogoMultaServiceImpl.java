@@ -32,7 +32,7 @@ public class catalogoMultaServiceImpl implements catalogoMultaService {
         Optional<catalogoMultaModel> existente = catalogoMultaRepository.findById(id);
         if (existente.isPresent()) {
             catalogoMultaModel v = existente.get();
-            if(catalogoMultaRepository.existsByTipo(multa.getTipo())) {
+            if (catalogoMultaRepository.existsByTipoAndIdTipoNot(multa.getTipo(), id)) {
                 throw new IllegalArgumentException("El tipo de multa ya existe");
             }
             v.setTipo(multa.getTipo() != null ? multa.getTipo() : v.getTipo());
@@ -43,7 +43,6 @@ public class catalogoMultaServiceImpl implements catalogoMultaService {
             throw new IllegalArgumentException("El elemento no existe");
         }
     }
-
     @Override
     public List<catalogoMultaModel> obtenerCatalogoMultas() {
         return catalogoMultaRepository.findAll();

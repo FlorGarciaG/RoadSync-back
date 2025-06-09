@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface catalogoMultaRepository extends JpaRepository<catalogoMultaModel, Long> {
     boolean existsByTipo(String tipo);
+    boolean existsByTipoAndIdTipoNot(String tipo, Long idTipo);
 }
 
