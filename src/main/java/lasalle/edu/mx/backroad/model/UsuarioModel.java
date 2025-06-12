@@ -87,4 +87,11 @@ public class UsuarioModel {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @PrePersist
+    @PreUpdate
+    private void convertirNombreYApellidosAMayusculas() {
+        if (this.nombre != null) this.nombre = this.nombre.toUpperCase();
+        if (this.apellidos != null) this.apellidos = this.apellidos.toUpperCase();
+    }
 }

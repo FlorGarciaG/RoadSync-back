@@ -84,4 +84,14 @@ public class PropietarioModel {
     public void setLicenciaVencimiento(LocalDate licenciaVencimiento) {
         this.licenciaVencimiento = licenciaVencimiento;
     }
+
+    @PrePersist
+    @PreUpdate
+    private void convertirCamposAMayusculas() {
+        if (this.nombre != null) this.nombre = this.nombre.toUpperCase();
+        if (this.apellidos != null) this.apellidos = this.apellidos.toUpperCase();
+        if (this.curp != null) this.curp = this.curp.toUpperCase();
+        if (this.rfc != null) this.rfc = this.rfc.toUpperCase();
+        if (this.licencia != null) this.licencia = this.licencia.toUpperCase();
+    }
 }
